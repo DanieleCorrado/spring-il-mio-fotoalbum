@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<head th:insert="fragments/resources :: headResources('Photo List')"></head>
+<body>
+<nav th:replace="fragments/navbar :: topNavbar('photos')"></nav>
+<div class="container" th:object="${photo}">
+    <!-- message da redirectAttributes -->
+    <div th:replace="fragments/components :: message"></div>
+    <h1 th:text="*{title}"></h1>
+    <hr>
+    <section class="row">
+        <div class="col-12 my-3">
+            <img class="img-fluid" src="@{/files/photo/{photoId}(photoId=*{id})}" alt="photo">
+        </div>
+        <div class="col-4">
+            <dl>
+                <dt>Added to catalog</dt>
+                <dd th:text="*{#temporals.format(createdAt, 'yyyy-MM-dd')}"></dd>
+                <dt>Description</dt>
+                <dd th:text="*{#strings.defaultString(description,'N.D.')}"></dd>
+            </dl>
+        </div>
+        <div class="col-4">
+            <h3>Categories</h3>
+            <ul th:if="*{categories.size() > 0}">
+                <li th:each="categoryObj : *{categories}" th:text="${categoryObj.name}"></li>
+            </ul>
+            <div th:unless="*{categories.size() > 0}" class="alert alert-info">The list is empty</div>
+        </div>
+    </section>
+    
+    <div class="mt-2">
+        <a th:href="@{/photos}" class="btn btn-primary">Back to list</a>
+    </div>
+</div>
+</body>
+</html>
