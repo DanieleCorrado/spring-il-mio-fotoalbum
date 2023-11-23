@@ -1,6 +1,6 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
-<head th:insert="fragments/resources :: headResources('Photo List')"></head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/resources :: headResources('Photo Details')"></head>
 <body>
 <nav th:replace="fragments/navbar :: topNavbar('photos')"></nav>
 <div class="container" th:object="${photo}">

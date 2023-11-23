@@ -4,9 +4,8 @@
 <body>
     <nav th:replace="fragments/navbar :: topNavbar('photos')"></nav>
     <div class="container">
-        <h1>Photos list</h1>
-        <div class="d-flex align-items-center justify-content-between">
-            <h1>Book List</h1>
+        <div class="d-flex align-items-center justify-content-between mt-3">
+            <h1>Photos list</h1>
             <form th:action="@{/photos}" method="GET">
                 <div class="input-group">
                     <!-- input precaricato leggendo il parametro search della request -->
@@ -25,7 +24,7 @@
             <a th:href="@{/photos/create}" class="btn btn-primary">Add new photo</a>
         </div>
         <div class="d-flex flex-wrap">
-            <div th:each="photo : ${photosList}" th:object="${photo}" class="card" style="width: 18rem;">
+            <div th:each="photo : ${photosList}" th:object="${photo}" class="card me-5" style="width: 18rem;">
                 <img class="card-img-top" src="..." alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title" th:text="*{title}"></h5>

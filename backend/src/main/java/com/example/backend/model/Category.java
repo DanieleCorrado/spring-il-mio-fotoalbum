@@ -16,13 +16,13 @@ public class Category {
 
     @NotBlank(message = "Category names must not be blank")
     @Size(max = 50, message = "Category name must be max 50 characters")
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Lob
     private String description;
 
     //GETTER E SETTER
-
 
     public Integer getId() {
         return id;
