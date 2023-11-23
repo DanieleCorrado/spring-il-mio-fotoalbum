@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 <head th:insert="fragments/resources :: headResources('Photo Details')"></head>
 <body>
 <nav th:replace="fragments/navbar :: topNavbar('photos')"></nav>
@@ -10,12 +10,12 @@
     <hr>
     <section class="row">
         <div class="col-12 my-3">
-            <img class="img-fluid" src="@{/files/photo/{photoId}(photoId=*{id})}" alt="photo">
+            <img class="img-fluid" th:src="@{/files/photo/{photoId}(photoId=*{id})}" alt="photo">
         </div>
         <div class="col-4">
             <dl>
                 <dt>Added to catalog</dt>
-                <dd th:text="*{#temporals.format(createdAt, 'yyyy-MM-dd')}"></dd>
+                <dd th:text="*{#temporals.format(createdAt, 'dd-MM-yyyy')}"></dd>
                 <dt>Description</dt>
                 <dd th:text="*{#strings.defaultString(description,'N.D.')}"></dd>
             </dl>

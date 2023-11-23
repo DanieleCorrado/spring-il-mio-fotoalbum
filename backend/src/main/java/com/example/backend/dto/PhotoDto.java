@@ -1,47 +1,39 @@
-package com.example.backend.model;
+package com.example.backend.dto;
 
+import com.example.backend.model.Category;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
-@Table(name = "photos")
-public class Photo {
+public class PhotoDto {
 
     // ATTRIBUTI
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
 
     @NotBlank(message = "Title must not be blank")
     @Size(max = 50, message = "Title must be a maximum of 50 characters")
     private String title;
 
-    @Lob
     private String description;
 
-    @Lob
-    @Column(length = 16777215)
-    @JsonIgnore
     @NotNull(message = "Photo must be uploaded")
-    private byte[] photo;
+    private MultipartFile photo;
 
     @NotNull(message = "Visibility must be selected")
     private boolean visibility;
 
-    @ManyToMany(fetch = FetchType.LAZY)
     private List<Category> categories;
 
-    @CreationTimestamp
-    private LocalDateTime createdAt;
-
     // SETTER E GETTER
+
 
     public Integer getId() {
         return id;
@@ -63,15 +55,15 @@ public class Photo {
         return description;
     }
 
-    public void setDescription(String synopsis) {
-        this.description = synopsis;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public byte[] getPhoto() {
+    public MultipartFile getPhoto() {
         return photo;
     }
 
-    public void setPhoto(byte[] photo) {
+    public void setPhoto(MultipartFile photo) {
         this.photo = photo;
     }
 
@@ -89,13 +81,5 @@ public class Photo {
 
     public void setCategories(List<Category> categories) {
         this.categories = categories;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
     }
 }
