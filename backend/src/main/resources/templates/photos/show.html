@@ -6,32 +6,38 @@
 <div class="container" th:object="${photo}">
     <!-- message da redirectAttributes -->
     <div th:replace="fragments/components :: message"></div>
-    <h1 th:text="*{title}"></h1>
+    <div class="d-flex justify-content-between mt-3">
+        
+        <h1 th:text="*{title}"></h1>
+        <div class="mt-2">
+            <a th:href="@{/photos}" class="btn btn-primary">Back to list</a>
+        </div>
+    </div>
+    <div>
+        <dt>Added to catalog</dt>
+        <dd th:text="*{#temporals.format(createdAt, 'dd-MM-yyyy')}"></dd>
+    </div>
     <hr>
     <section class="row">
-        <div class="col-12 my-3">
-            <img class="img-fluid" th:src="@{/files/photo/{photoId}(photoId=*{id})}" alt="photo">
+        <div class="col-8 my-3">
+            <img class="img-fluid" th:src="@{/files/photo/{photoId}(photoId=*{id})}" alt="photo" style="max-width: 45rem">
         </div>
-        <div class="col-4">
+        <div class="col-4 my-3">
             <dl>
-                <dt>Added to catalog</dt>
-                <dd th:text="*{#temporals.format(createdAt, 'dd-MM-yyyy')}"></dd>
+                <dt>Categories</dt>
+                <dd th:if="*{categories.size() > 0}">
+                    <dd th:each="categoryObj : *{categories}" th:text="${categoryObj.name}">
+                
+                </dd>
+                <dd th:unless="*{categories.size() > 0}" class="alert alert-info">The list is empty</dd>
+                
+            </dl>
+            <dl>
                 <dt>Description</dt>
                 <dd th:text="*{#strings.defaultString(description,'N.D.')}"></dd>
             </dl>
         </div>
-        <div class="col-4">
-            <h3>Categories</h3>
-            <ul th:if="*{categories.size() > 0}">
-                <li th:each="categoryObj : *{categories}" th:text="${categoryObj.name}"></li>
-            </ul>
-            <div th:unless="*{categories.size() > 0}" class="alert alert-info">The list is empty</div>
-        </div>
     </section>
-    
-    <div class="mt-2">
-        <a th:href="@{/photos}" class="btn btn-primary">Back to list</a>
-    </div>
 </div>
 </body>
 </html>

@@ -28,16 +28,28 @@
                 <img class="card-img-top" th:src="@{/files/photo/{photoId}(photoId=*{id})}" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title" th:text="*{title}"></h5>
-                    <a class="btn btn-primary" th:href="@{/photos/show/{id}(id=*{id})}" title="details"><i
-                            class="fa-solid fa-book"></i>
-                    </a>
-                    <a
-                            class="btn btn-primary"
-                            th:href="@{/photos/edit/{id}(id=*{id})}"
-                            title="edit"
-                            sec:authorize="hasAuthority('ADMIN')"
-                    ><i
-                            class="fa-solid fa-pen-to-square"></i></a>
+                    <div class="d-flex justify-content-between">
+                        
+                        <a class="btn btn-primary" th:href="@{/photos/show/{id}(id=*{id})}" title="details"><i
+                                class="fa-solid fa-book"></i>
+                        </a>
+                        <a
+                                class="btn btn-primary"
+                                th:href="@{/photos/edit/{id}(id=*{id})}"
+                                title="edit"
+                                sec:authorize="hasAuthority('ADMIN')"
+                        ><i
+                                class="fa-solid fa-pen-to-square"></i></a>
+                        <form
+                                method="POST"
+                                th:action="@{/photos/delete/{id}(id=*{id})}"
+                                onsubmit="return confirm('Are you sure?')"
+                                sec:authorize="hasAuthority('ADMIN')"
+                        >
+                            <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

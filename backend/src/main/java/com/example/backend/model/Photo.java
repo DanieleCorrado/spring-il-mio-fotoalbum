@@ -20,16 +20,18 @@ public class Photo {
     private Integer id;
 
     @NotBlank(message = "Title must not be blank")
-    @Size(max = 50, message = "Title must be a maximum of 50 characters")
+    @Size(max = 255, message = "Title must be less than 255")
     private String title;
 
     @Lob
+    @Column(length = 16777215)
     private String description;
 
     @Lob
     @Column(length = 16777215)
     @JsonIgnore
     @NotNull(message = "Photo must be uploaded")
+    @Size(min = 1)
     private byte[] photo;
 
     @NotNull(message = "Visibility must be selected")

@@ -108,4 +108,9 @@ public class PhotoService {
         Photo photo = convertDtoToPhoto(photoDto);
         return editPhoto(photo);
     }
+
+    // Metodo che elimina una foto da database
+    public void deletePhoto(Integer id) {
+        photoRepository.deleteById(id);
+    }
 }

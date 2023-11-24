@@ -13,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -57,25 +59,30 @@ public class PhotoController {
 
     // Metodo che salva la foto su database
     @PostMapping("/create")
-    public String doCreate(@Valid @ModelAttribute("photo") PhotoDto formPhoto, BindingResult bindingResult, Model model) {
+    public String doCreate(@Valid @ModelAttribute("photo") PhotoDto formPhoto, BindingResult bindingResult, Model model, @RequestParam("photo") MultipartFile photo) {
+
+        if (photo.getSize() == 0) {
+            bindingResult.addError(new FieldError("photo", "photo", null, false, null, null,
+                    "Photo must be uploaded"));
+        }
 
         if (bindingResult.hasErrors()) {
-
             model.addAttribute("categoryList",categoryService.getAll());
             return "photos/form";
         }
+
 
         try {
             Photo savedPhoto = photoService.createPhoto(formPhoto);
             return "redirect:/photos/show/" + savedPhoto.getId();
         } catch (IOException e) {
-            bindingResult.addError(new FieldError("photo", "photoFile", null, false, null, null,
+            bindingResult.addError(new FieldError("photo", "photo", null, false, null, null,
                     "Unable to save file"));
             return "photos/form";
         }
     }
 
-    // metodo che mostra la pagina di modifica di una foto
+    // Metodo che mostra la pagina di modifica di una foto
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
         try {
@@ -107,6 +114,21 @@ public class PhotoController {
             bindingResult.addError(new FieldError("photo", "photoFile", null, false, null, null,
                     "Unable to save file"));
             return "photos/form";
+        }
+    }
+
+    // Metodo che elimina una foto da database
+
+    @PostMapping("/delete/{id}")
+    public String detete(@PathVariable Integer id, RedirectAttributes redirectAttributes){
+
+        try {
+            Photo photoToDelete = photoService.getPhotoById(id);
+            photoService.deletePhoto(id);
+            redirectAttributes.addFlashAttribute("message", "Photo " + photoToDelete.getTitle() + " deleted");
+            return "redirect:/photos";
+        } catch (PhotoNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 }
