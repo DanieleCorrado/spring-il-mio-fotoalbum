@@ -10,11 +10,20 @@
       crossorigin="anonymous"
     />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <title>Photo book</title>
+    <title>Photo Gallery</title>
   </head>
   <body>
     <div class="container">
-      <h1>Photo book</h1>
+      <h1>Photo Gallery</h1>
+      <form action="/" method="GET">
+        <div class="form-group my-3">
+          <label for="search">Photo title</label>
+          <input type="text" id="search" name="search" required />
+          <button type="submit" id="searchButton" class="btn btn-primary">
+            Search
+          </button>
+        </div>
+      </form>
       <div id="root"></div>
     </div>
 

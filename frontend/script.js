@@ -2,11 +2,11 @@
 
 const apiUrl = 'http://localhost:8080/api/v1/photos'
 const root = document.getElementById('root')
+const searchButton = document.getElementById('searchButton')
 
 // Funzione che renderizza le categorie
 
 const renderCategories = (categories) => {
-  console.log(categories)
   let content
 
   if (categories.length === 0) {
@@ -77,6 +77,27 @@ const getPhotos = async () => {
     const response = await axios.get(apiUrl)
 
     // Passo i dati alla funzione per renderizzarli
+    renderPhotoList(response.data)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// Funzione che controlla se il pulsante di ricerca viene premuto
+
+searchButton.addEventListener('click', (event) => {
+  event.preventDefault()
+  const value = search.value.trim()
+  imageFilter(value)
+})
+
+// funzione che effettua una ricerca delle foto in base al parametro inserito dall'utente
+
+async function imageFilter(search) {
+  const request = apiUrl + '?search=' + search
+
+  try {
+    const response = await axios.get(request)
     renderPhotoList(response.data)
   } catch (error) {
     console.log(error)
