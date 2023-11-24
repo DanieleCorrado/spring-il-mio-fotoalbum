@@ -118,9 +118,8 @@ public class PhotoController {
     }
 
     // Metodo che elimina una foto da database
-
     @PostMapping("/delete/{id}")
-    public String detete(@PathVariable Integer id, RedirectAttributes redirectAttributes){
+    public String delete(@PathVariable Integer id, RedirectAttributes redirectAttributes){
 
         try {
             Photo photoToDelete = photoService.getPhotoById(id);

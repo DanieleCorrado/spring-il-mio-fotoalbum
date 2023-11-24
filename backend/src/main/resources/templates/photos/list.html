@@ -4,6 +4,7 @@
 <body>
     <nav th:replace="fragments/navbar :: topNavbar('photos')"></nav>
     <div class="container">
+        <div th:replace="fragments/components :: message"></div>
         <div class="d-flex align-items-center justify-content-between mt-3">
             <h1>Photos list</h1>
             <form th:action="@{/photos}" method="GET">
