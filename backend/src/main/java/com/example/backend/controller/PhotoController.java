@@ -130,4 +130,16 @@ public class PhotoController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
+
+    @PostMapping("/visibility/{id}")
+    public String visibility(@PathVariable Integer id) {
+
+        try {
+            Photo photoToEdit = photoService.getPhotoById(id);
+            photoService.visibility(photoToEdit);
+            return "redirect:/photos";
+        } catch (PhotoNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
 }

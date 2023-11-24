@@ -59,6 +59,17 @@
                                 class="fa-solid fa-pen-to-square"></i></a>
                         <form
                                 method="POST"
+                                th:action="@{/photos/visibility/{id}(id=*{id})}"
+                                onsubmit="return confirm('Are you sure?')"
+                                sec:authorize="hasAuthority('ADMIN')"
+                        >
+                            <button type="submit" class="btn btn-primary" th:title="*{visibility} ? 'public' : 'private'">
+                                <i th:if="*{visibility}" class="fa-solid fa-eye"></i>
+                                <i th:unless="*{visibility}" class="fa-solid fa-eye-slash"></i>
+                            </button>
+                        </form>
+                        <form
+                                method="POST"
                                 th:action="@{/photos/delete/{id}(id=*{id})}"
                                 onsubmit="return confirm('Are you sure?')"
                                 sec:authorize="hasAuthority('ADMIN')"
@@ -66,6 +77,7 @@
                             <button type="submit" class="btn btn-danger" title="delete"><i class="fa-solid fa-trash-can"></i>
                             </button>
                         </form>
+                        
                     </div>
                 </div>
             </div>

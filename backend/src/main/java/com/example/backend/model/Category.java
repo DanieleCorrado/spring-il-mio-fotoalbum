@@ -1,5 +1,6 @@
 package com.example.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -25,6 +26,7 @@ public class Category {
     private String description;
 
     @ManyToMany(mappedBy = "categories")
+    @JsonIgnore
     private List<Photo> photos;
 
     //GETTER E SETTER

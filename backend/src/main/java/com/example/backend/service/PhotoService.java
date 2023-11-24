@@ -18,12 +18,19 @@ public class PhotoService {
     private PhotoRepository photoRepository;
 
     // Metodo che restituisce la lista di tutte le foto eventualmente filtrate
-
     public List<Photo> getPhotoList(Optional<String> search){
         if (search.isPresent()) {
             return photoRepository.findByTitleContainingIgnoreCase(search.get());
         }else {
             return photoRepository.findAll();
+        }
+    }
+
+    public List<Photo> getVisiblePhotoList(Optional<String> search){
+        if (search.isPresent()) {
+            return photoRepository.findByTitleContainingIgnoreCaseAndVisibilityTrue(search.get());
+        }else {
+            return photoRepository.findByVisibilityTrue();
         }
     }
 
@@ -112,5 +119,16 @@ public class PhotoService {
     // Metodo che elimina una foto da database
     public void deletePhoto(Integer id) {
         photoRepository.deleteById(id);
+    }
+
+
+    // metodo per modificare la visibilià una foto con un id
+    public Photo visibility(Photo photo) throws PhotoNotFoundException {
+        Photo photoToEdit = getPhotoById(photo.getId());
+        // sostituisco i valori dei campi previsti
+        boolean visibility =photo.isVisibility();
+        photoToEdit.setVisibility(!visibility);
+
+        return photoRepository.save(photoToEdit);
     }
 }
