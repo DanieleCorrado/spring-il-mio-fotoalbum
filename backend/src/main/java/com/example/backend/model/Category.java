@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.List;
+
 @Entity
 @Table(name = "categories")
 public class Category {
@@ -21,6 +23,9 @@ public class Category {
 
     @Lob
     private String description;
+
+    @ManyToMany(mappedBy = "categories")
+    private List<Photo> photos;
 
     //GETTER E SETTER
 
@@ -46,5 +51,13 @@ public class Category {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Photo> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<Photo> photos) {
+        this.photos = photos;
     }
 }

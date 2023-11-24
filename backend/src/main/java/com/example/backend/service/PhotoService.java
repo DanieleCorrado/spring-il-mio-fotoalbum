@@ -22,7 +22,7 @@ public class PhotoService {
     public List<Photo> getPhotoList(Optional<String> search){
         if (search.isPresent()) {
             return photoRepository.findByTitleContainingIgnoreCase(search.get());
-        } else {
+        }else {
             return photoRepository.findAll();
         }
     }
