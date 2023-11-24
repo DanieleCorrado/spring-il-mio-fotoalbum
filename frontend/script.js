@@ -3,6 +3,7 @@
 const apiUrl = 'http://localhost:8080/api/v1/photos'
 const root = document.getElementById('root')
 const searchButton = document.getElementById('searchButton')
+const messageForm = document.getElementById('messageForm')
 
 // Funzione che renderizza le categorie
 
@@ -83,7 +84,7 @@ const getPhotos = async () => {
   }
 }
 
-// Funzione che controlla se il pulsante di ricerca viene premuto
+// Funzione che controlla se il form di ricerca viene invocato
 
 searchButton.addEventListener('click', (event) => {
   event.preventDefault()
@@ -102,6 +103,44 @@ async function imageFilter(search) {
   } catch (error) {
     console.log(error)
   }
+}
+
+// Funzione che controlla se il form per il messaggio è stavo inviato
+
+messageForm.addEventListener('click', (event) => {
+  event.preventDefault()
+  const userEmail = email.value
+  const userMessage = message.value
+  savemessage(userEmail, userMessage)
+  email.value = ''
+  message.value = ''
+})
+
+// Funzione che invia il messaggio al database
+
+function savemessage(userEmail, userMessage) {
+  const message = {
+    email: userEmail,
+    message: userMessage,
+  }
+
+  fetch(apiUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(message),
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        window.alert('Message sent correctly')
+      } else {
+        window.alert('Error sending message! Try again')
+      }
+    })
+    .catch((error) => {
+      window.alert('Error sending message! Try again')
+    })
 }
 
 /* Codice globale eseguito al load dello script */

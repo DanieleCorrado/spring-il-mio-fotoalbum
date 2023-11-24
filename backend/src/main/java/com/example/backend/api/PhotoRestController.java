@@ -1,7 +1,10 @@
 package com.example.backend.api;
 
 import com.example.backend.controller.FileController;
+import com.example.backend.model.Message;
 import com.example.backend.model.Photo;
+import com.example.backend.repository.MessageRepository;
+import com.example.backend.service.MessageService;
 import com.example.backend.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,6 +21,9 @@ public class PhotoRestController {
 
     @Autowired
     private PhotoService photoService;
+
+    @Autowired
+    private MessageRepository messageRepository;
 
     // Endpoint per mostrare la lista di tutte le foto
     @GetMapping
@@ -36,5 +42,15 @@ public class PhotoRestController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping
+    public ResponseEntity<Message> saveMessage(@RequestBody Message message) {
+        // Salvare il messaggio nel database
+        Message messageToSave = new Message();
+        messageRepository.save(message);
+
+        // Creare una risposta API
+        return ResponseEntity.ok(message);
     }
 }

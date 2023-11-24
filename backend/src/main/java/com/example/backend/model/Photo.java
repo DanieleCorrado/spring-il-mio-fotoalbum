@@ -38,7 +38,6 @@ public class Photo {
     private boolean visibility;
 
     @ManyToMany(fetch = FetchType.LAZY)
-
     private List<Category> categories;
 
     @CreationTimestamp
