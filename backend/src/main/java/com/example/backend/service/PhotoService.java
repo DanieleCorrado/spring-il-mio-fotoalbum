@@ -26,6 +26,8 @@ public class PhotoService {
         }
     }
 
+    // Metodo che restituisce solo le foto con visibilità public
+
     public List<Photo> getVisiblePhotoList(Optional<String> search){
         if (search.isPresent()) {
             return photoRepository.findByTitleContainingIgnoreCaseAndVisibilityTrue(search.get());
@@ -35,6 +37,7 @@ public class PhotoService {
     }
 
     // Metodo che restituisce una foto preso per id, se non lo trova solleva un'eccezione
+
     public Photo getPhotoById(Integer id) throws PhotoNotFoundException {
         Optional<Photo> result = photoRepository.findById(id);
         if (result.isPresent()) {
@@ -45,7 +48,6 @@ public class PhotoService {
     }
 
     // Metodo che crea una foto nuova
-
     public Photo createPhoto(Photo photo) {
 
         photo.setId(null);
@@ -78,6 +80,7 @@ public class PhotoService {
         return photo;
     }
 
+    // Metodo che permette la conversione da photo a photoDto
     private static PhotoDto convertPhotoToDto(Photo photo) {
         PhotoDto photoDto = new PhotoDto();
         photoDto.setTitle(photo.getTitle());
@@ -88,14 +91,14 @@ public class PhotoService {
         return photoDto;
     }
 
-
+    // Metodo che restituisce una photo in base all'id
     public PhotoDto getPhotoDtoById(Integer id) throws PhotoNotFoundException {
 
         Photo photo = getPhotoById(id);
         return convertPhotoToDto(photo);
     }
 
-    // metodo per modificare una foto con un id
+    // Metodo per modificare una foto con un id
     public Photo editPhoto(Photo photo) throws PhotoNotFoundException {
         Photo photoToEdit = getPhotoById(photo.getId());
         // sostituisco i valori dei campi previsti
@@ -117,12 +120,14 @@ public class PhotoService {
     }
 
     // Metodo che elimina una foto da database
+
     public void deletePhoto(Integer id) {
         photoRepository.deleteById(id);
     }
 
 
-    // metodo per modificare la visibilià una foto con un id
+    // Metodo per modificare la visibilità una foto con un id
+
     public Photo visibility(Photo photo) throws PhotoNotFoundException {
         Photo photoToEdit = getPhotoById(photo.getId());
         // sostituisco i valori dei campi previsti

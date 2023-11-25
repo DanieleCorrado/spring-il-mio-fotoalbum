@@ -8,9 +8,13 @@ import jakarta.persistence.Table;
 @Table(name = "roles")
 public class Role {
 
+    // ATTRIBUTI
+
     @Id
     private Integer id;
     private String name;
+
+    // SETTER E GETTER
 
     public Integer getId() {
         return id;

@@ -19,7 +19,6 @@ public class FileController {
     private PhotoService photoService;
 
     // Metodo che restituisce la foto in base all'id
-
     @GetMapping("/photo/{photoId}")
     public ResponseEntity<byte[]> servePhoto(@PathVariable Integer photoId) {
 

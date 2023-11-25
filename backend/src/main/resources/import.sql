@@ -1,6 +1,3 @@
-INSERT INTO photos(title,created_at, description, photo, visibility) VALUES('portrait','2023-11-23 11:35:00', 'test', null, 1);
-INSERT INTO photos(title,created_at, description, photo, visibility) VALUES('nature','2023-11-23 11:35:00', 'test2', null, 1);
-
 INSERT INTO categories(description, name) VALUES(null, 'portrait');
 INSERT INTO categories(description, name) VALUES(null, 'nature');
 INSERT INTO categories(description, name) VALUES(null, 'black & white');

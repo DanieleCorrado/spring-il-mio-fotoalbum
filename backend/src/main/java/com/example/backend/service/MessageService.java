@@ -7,15 +7,17 @@ import com.example.backend.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MessageService {
 
     @Autowired
     MessageRepository messageRepository;
 
-    public Message save(Message message) {
-        // trasformo il nome in lowercase
-        // salvo su database
-        return messageRepository.save(message);
+    // Metodo che recupera la lista dei messaggi ordinata per email
+    public List<Message> getAll() {
+        return messageRepository.findByOrderByEmail();
     }
+
 }

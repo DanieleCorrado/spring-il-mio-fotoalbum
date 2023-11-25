@@ -12,16 +12,15 @@ import java.util.Set;
 
 public class DatabaseUserDetails implements UserDetails {
 
-    // campi specifici per un DatabaseUserDetails
+    // Campi specifici per un DatabaseUserDetails
     private Integer id;
     private String username;
     private String password;
     private Set<GrantedAuthority> authorities = new HashSet<>();
 
-    // costruttore che copia da una istanza di User i dati che mi servono
+    // Costruttore che copia da una istanza di User i dati che mi servono
     public DatabaseUserDetails(User user) {
         this.id = user.getId();
-        // per la library il campo univoco username è la email
         this.username = user.getEmail();
         this.password = user.getPassword();
         // per ogni ruolo creo una GrantedAuthority

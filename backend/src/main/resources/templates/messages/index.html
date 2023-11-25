@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<head th:insert="fragments/resources :: headResources('Messages')"></head>
+<body>
+<nav th:replace="fragments/navbar :: topNavbar('messages')"></nav>
+<div class="container">
+    <!-- message da redirectAttributes -->
+    <div th:replace="fragments/components :: message"></div>
+    <h1>Messages</h1>
+    <hr>
+    <section class="mt-4">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Email</th>
+                <th>Message</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="message : ${messageList}" th:object="${message}">
+                <td th:text="*{email}"></td>
+                <td th:text="*{message}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+    <div class="mt-3">
+        <a th:href="@{/photos}" class="btn btn-primary">Back to list</a>
+    </div>
+</div>
+</body>
+</html>

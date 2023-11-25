@@ -15,10 +15,14 @@
           <a class="nav-link" th:classAppend="${area == 'photos' ? 'active' : ''}"
              th:href="@{/photos}">Photos</a>
         </li>
-        <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+        <li class="nav-item">
           <a class="nav-link" th:classAppend="${area == 'categories' ? 'active' : ''}"
              th:href="@{/categories}">Categories</a>
         </li>
+          <li class="nav-item">
+              <a class="nav-link" th:classAppend="${area == 'messages' ? 'active' : ''}"
+                 th:href="@{/messages}">Messages</a>
+          </li>
       </ul>
       <div class="text-light">
         Hi <span sec:authentication="name"></span>

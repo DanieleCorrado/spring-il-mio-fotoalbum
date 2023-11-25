@@ -1,10 +1,8 @@
 package com.example.backend.api;
 
-import com.example.backend.controller.FileController;
 import com.example.backend.model.Message;
 import com.example.backend.model.Photo;
 import com.example.backend.repository.MessageRepository;
-import com.example.backend.service.MessageService;
 import com.example.backend.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -31,6 +29,8 @@ public class PhotoRestController {
         return photoService.getVisiblePhotoList(search);
     }
 
+
+    // Endpoint che recupera il file della singola foto
     @GetMapping("/{id}")
     public ResponseEntity<byte[]> photoFile(@PathVariable Integer id) {
         Photo photo = photoService.getPhotoById(id);
@@ -44,10 +44,9 @@ public class PhotoRestController {
         }
     }
 
+    // Endopoint che permette il salvataggio di un messaggio in database
     @PostMapping
     public ResponseEntity<Message> saveMessage(@RequestBody Message message) {
-        // Salvare il messaggio nel database
-        Message messageToSave = new Message();
         messageRepository.save(message);
 
         // Creare una risposta API

@@ -26,11 +26,13 @@ const renderCategories = (categories) => {
 const renderPhoto = (element) => {
   const imgUrl = apiUrl + '/' + element.id
 
-  return `<div class="card shadow h-100">
-  <img src=${imgUrl}>
-   <div class=card-body>
-    <h5 class="">${element.title}</h5>
-    <p>${element.description}</p>
+  return `<div class="card shadow my-3" >
+  <img src=${imgUrl} style="height: 15rem">
+   <div class="card-body" style="height: 10rem">
+    <h5 >${element.title}</h5>
+    <p class="${element.description.length == 0} ? 'hidden' :">${
+    element.description
+  }</p>
    </div>
    <div class="card-footer">
    ${renderCategories(element.categories)}
@@ -109,11 +111,15 @@ async function imageFilter(search) {
 
 messageForm.addEventListener('click', (event) => {
   event.preventDefault()
-  const userEmail = email.value
-  const userMessage = message.value
-  savemessage(userEmail, userMessage)
-  email.value = ''
-  message.value = ''
+  emailValidation = validateEmailForm(email.value)
+  messageValidation = validateMessageForm(email.value)
+  if (emailValidation && messageValidation) {
+    const userEmail = email.value
+    const userMessage = message.value
+    savemessage(userEmail, userMessage)
+    email.value = ''
+    message.value = ''
+  }
 })
 
 // Funzione che invia il messaggio al database
@@ -141,6 +147,39 @@ function savemessage(userEmail, userMessage) {
     .catch((error) => {
       window.alert('Error sending message! Try again')
     })
+}
+
+// funzione che verifica che la mail inserita sia valida
+
+function validateEmailForm() {
+  let email = document.forms['messageForm']['email'].value
+  if (email == '') {
+    alert('Email must be filled out')
+    return false
+  } else if (
+    !email
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      )
+  ) {
+    alert('Insert a valid Email')
+    return false
+  } else {
+    return true
+  }
+}
+
+// Funzione che contralle se il messaggio inserito sia valido
+
+function validateMessageForm() {
+  let message = document.forms['messageForm']['message'].value
+  if (message == '') {
+    alert('Message must be filled out')
+    return false
+  } else {
+    return true
+  }
 }
 
 /* Codice globale eseguito al load dello script */

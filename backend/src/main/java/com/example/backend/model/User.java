@@ -12,6 +12,8 @@ import java.util.Set;
 @Table(name = "users")
 public class User {
 
+    // ATTRIBUTI
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -30,6 +32,8 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
+
+    // SETTER E GETTER
 
     public Integer getId() {
         return id;

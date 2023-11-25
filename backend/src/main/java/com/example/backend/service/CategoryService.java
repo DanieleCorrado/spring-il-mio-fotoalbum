@@ -19,9 +19,13 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
 
 
+    // Metodo che recupera la lista delle categorie ordinata per nome
+
     public List<Category> getAll() {
         return categoryRepository.findByOrderByName();
     }
+
+    // Metodo che salva una nuova categoria nel database
 
     public Category save(Category category) throws CategoryNameUniqueException {
         // verifico che questo nome non esista già
@@ -30,11 +34,12 @@ public class CategoryService {
         }
         // trasformo il nome in lowercase
         category.setName(category.getName().toLowerCase());
+
         // salvo su database
         return categoryRepository.save(category);
     }
 
-    // Metodo che restituisce una categoria preso per id, se non la trova solleva un'eccezione
+    // Metodo che restituisce una categoria presa per id
     public Category getCategoryById(Integer id) throws PhotoNotFoundException {
         Optional<Category> result = categoryRepository.findById(id);
         if (result.isPresent()) {
@@ -44,7 +49,7 @@ public class CategoryService {
         }
     }
 
-    // Metodo che elimina una foto da database
+    // Metodo che elimina una categoria da database
     public void deleteCategory(Integer id) {
         Category categoryToDelete = getCategoryById(id);
         List<Photo> photoList = categoryToDelete.getPhotos();

@@ -23,7 +23,6 @@ public class Message {
 
     // SETTER E GETTER
 
-
     public Integer getId() {
         return id;
     }

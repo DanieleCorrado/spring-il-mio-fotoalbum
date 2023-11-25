@@ -34,7 +34,6 @@ public class PhotoDto {
 
     // SETTER E GETTER
 
-
     public Integer getId() {
         return id;
     }

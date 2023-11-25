@@ -15,6 +15,7 @@ import java.util.List;
 public class Photo {
 
     // ATTRIBUTI
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

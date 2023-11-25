@@ -30,6 +30,8 @@ public class PhotoController {
     @Autowired
     private CategoryService categoryService;
 
+
+    // Metodo che mostra tutte le foto presenti nel database
     @GetMapping
     public String index(@RequestParam Optional<String> search, Model model) {
         model.addAttribute("photosList", photoService.getPhotoList(search));
@@ -37,12 +39,13 @@ public class PhotoController {
         return "photos/list";
     }
 
-    // Metodo che mostra i dettagli di una foto preso per id
+    // Metodo che mostra i dettagli di una foto presa per id
     @GetMapping("/show/{id}")
     public String show(@PathVariable Integer id, Model model) {
         try {
             Photo photo = photoService.getPhotoById(id);
             model.addAttribute("photo", photo);
+
             return "photos/show";
         } catch (PhotoNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
@@ -54,6 +57,7 @@ public class PhotoController {
     public String create(Model model) {
         model.addAttribute("photo", new PhotoDto());
         model.addAttribute("categoryList", categoryService.getAll());
+
         return "photos/form";
     }
 
@@ -68,16 +72,19 @@ public class PhotoController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("categoryList",categoryService.getAll());
+
             return "photos/form";
         }
 
 
         try {
             Photo savedPhoto = photoService.createPhoto(formPhoto);
+
             return "redirect:/photos/show/" + savedPhoto.getId();
         } catch (IOException e) {
             bindingResult.addError(new FieldError("photo", "photo", null, false, null, null,
                     "Unable to save file"));
+
             return "photos/form";
         }
     }
@@ -96,23 +103,26 @@ public class PhotoController {
         }
     }
 
-    // metodo che riceve il submit del form di edit e salva la foto
+    // metodo che riceve il submit del form di edit e salva le modifiche alla foto
     @PostMapping("/edit/{id}")
     public String doEdit(@PathVariable Integer id, @Valid @ModelAttribute("photo") PhotoDto formPhoto,
                          BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("categoryList", categoryService.getAll());
+
             return "/photos/form";
         }
         try {
             Photo savedPhoto = photoService.editPhoto(formPhoto);
+
             return "redirect:/photos/show/" + savedPhoto.getId();
         } catch (PhotoNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         } catch (IOException e) {
             bindingResult.addError(new FieldError("photo", "photoFile", null, false, null, null,
                     "Unable to save file"));
+
             return "photos/form";
         }
     }
@@ -125,18 +135,21 @@ public class PhotoController {
             Photo photoToDelete = photoService.getPhotoById(id);
             photoService.deletePhoto(id);
             redirectAttributes.addFlashAttribute("message", "Photo " + photoToDelete.getTitle() + " deleted");
+
             return "redirect:/photos";
         } catch (PhotoNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
+    // Metodo che modifica la visibilità di una foto
     @PostMapping("/visibility/{id}")
     public String visibility(@PathVariable Integer id) {
 
         try {
             Photo photoToEdit = photoService.getPhotoById(id);
             photoService.visibility(photoToEdit);
+
             return "redirect:/photos";
         } catch (PhotoNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());

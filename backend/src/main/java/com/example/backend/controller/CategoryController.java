@@ -27,32 +27,37 @@ public class CategoryController {
     @GetMapping
     public String index(Model model) {
         // passa al model categoryList con la lista di categorie
+
         model.addAttribute("categoryList", categoryService.getAll());
         // passa al model una categoria vuota come attributo categoryObj del form
+
         model.addAttribute("categoryObj", new Category());
         return "categories/index";
     }
-
 
     // Metodo che aggiunge una categoria al database
     @PostMapping
     public String doSave(@Valid @ModelAttribute("categoryObj") Category formCategory,
                          BindingResult bindingResult,
                          Model model) {
+
         // valido la categoria
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("categoryList", categoryService.getAll());
             return "categories/index";
         }
         try {
             // salvo la nuova categoria su database
+
             categoryService.save(formCategory);
+
             return "redirect:/categories";
         } catch (CategoryNameUniqueException e) {
             bindingResult.addError(new FieldError("category", "name", e.getMessage(), false, null, null,
                     "Category name must be unique"));
             model.addAttribute("categoryList", categoryService.getAll());
-            // ti rimando alla pagina col form
+
             return "categories/index";
         }
     }
@@ -62,9 +67,15 @@ public class CategoryController {
     public String delete(@PathVariable Integer id, RedirectAttributes redirectAttributes){
 
         try {
+            // Recupera la categoria con l'id specificato
+
             Category categoryToDelete = categoryService.getCategoryById(id);
+
+            // Elimina la categoria dal database utilizzando il CategoryService
+
             categoryService.deleteCategory(id);
             redirectAttributes.addFlashAttribute("message", "Category " + categoryToDelete.getName() + " deleted");
+
             return "redirect:/categories";
         } catch (PhotoNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
