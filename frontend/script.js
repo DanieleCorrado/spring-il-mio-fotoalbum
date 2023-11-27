@@ -26,13 +26,13 @@ const renderCategories = (categories) => {
 const renderPhoto = (element) => {
   const imgUrl = apiUrl + '/' + element.id
 
-  return `<div class="card shadow my-3" >
-  <img src=${imgUrl} style="height: 15rem">
-   <div class="card-body" style="height: 10rem">
+  return `<div class="card shadow my-3 photo-card" >
+  <img src=${imgUrl}>
+   <div class="card-body">
     <h5 >${element.title}</h5>
-    <p class="${element.description.length == 0} ? 'hidden' :">${
-    element.description
-  }</p>
+    <p class="${element.description.length === 0 ? 'hidden' : ''}">
+    ${element.description}
+  </p>
    </div>
    <div class="card-footer">
    ${renderCategories(element.categories)}

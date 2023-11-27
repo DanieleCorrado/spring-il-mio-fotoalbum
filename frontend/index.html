@@ -15,17 +15,28 @@
   </head>
   <body>
     <div class="container" id="container">
-      <h1>Photo Gallery</h1>
-      <form action="/" method="GET">
-        <div class="form-group my-3">
-          <label for="search">Photo title</label>
-          <input type="text" id="search" name="search" required />
-          <button type="submit" id="searchButton" class="btn btn-primary">
-            Search
-          </button>
+
+      <!-- HEADER -->
+
+      <header>
+        <div class="d-flex align-items-center justify-content-between mt-3">
+          <h1>Photo Gallery</h1>
+          <form action="/" method="GET">
+            <div class="input-group">
+              <input type="text" id="search" name="search" placeholder="Search by title" required />
+              <button type="submit" id="searchButton" class="btn btn-primary">
+                Search
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
+      </header>
+
+      <hr>
+
       <div id="root"></div>
+
+      <!-- FOOTER -->
 
       <footer class="my-5">
         <form
@@ -36,7 +47,7 @@
           class="row gy-2"
           onsubmit="return validateForm()"
         >
-          <div class="col-8">
+          <div class="col-12">
             <div class="row">
               <!-- Email -->
               <div class="col-6">
@@ -44,7 +55,7 @@
                <input type="email" class="form-control" id="email" field="email" name="email">
               </div>
               <!-- Message -->
-              <div class="col-12">
+              <div class="col-8">
                 <label for="message" class="form-label">Message</label>
                 <textarea
                   class="form-control"

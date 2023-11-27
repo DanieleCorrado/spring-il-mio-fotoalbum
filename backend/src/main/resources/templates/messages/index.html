@@ -4,22 +4,22 @@
 <body>
 <nav th:replace="fragments/navbar :: topNavbar('messages')"></nav>
 <div class="container">
-    <!-- message da redirectAttributes -->
-    <div th:replace="fragments/components :: message"></div>
     <h1>Messages</h1>
     <hr>
     <section class="mt-4">
-        <table class="table">
+        <table class="table col-12">
             <thead>
             <tr>
                 <th>Email</th>
                 <th>Message</th>
+                <th>Received at</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="message : ${messageList}" th:object="${message}">
-                <td th:text="*{email}"></td>
-                <td th:text="*{message}"></td>
+                <td th:text="*{email}" class="col-3"></td>
+                <td th:text="*{message}" class="col-6"></td>
+                <td th:text="*{#temporals.format(createdAt, 'dd-MM-yyyy')}" class="col-3"></td>
             </tr>
             </tbody>
         </table>

@@ -3,6 +3,9 @@ package com.example.backend.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "messages")
@@ -20,6 +23,9 @@ public class Message {
     @NotBlank(message = "Title must not be blank")
     @Size(max = 3000, message = "Title must be less than 255")
     private String message;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
     // SETTER E GETTER
 
@@ -45,5 +51,13 @@ public class Message {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

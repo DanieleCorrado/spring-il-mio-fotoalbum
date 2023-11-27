@@ -17,7 +17,7 @@ public class MessageService {
 
     // Metodo che recupera la lista dei messaggi ordinata per email
     public List<Message> getAll() {
-        return messageRepository.findByOrderByEmail();
+        return messageRepository.findByOrderByCreatedAtDesc();
     }
 
 }

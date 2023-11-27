@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface MessageRepository extends JpaRepository<Message, Integer> {
 
-    List<Message> findByOrderByEmail();
+    List<Message> findByOrderByCreatedAtDesc();
 
 }

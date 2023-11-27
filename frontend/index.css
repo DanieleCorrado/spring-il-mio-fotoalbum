@@ -7,3 +7,23 @@
 .hidden {
   display: none;
 }
+
+a:link {
+  text-decoration: none;
+}
+
+.photo-card {
+  min-height: 40rem;
+}
+
+.photo-card > img {
+  height: 20rem;
+}
+
+.photo-card > .card-body {
+  min-height: 5rem;
+}
+
+.photo-card > .card-footer {
+  min-height: 10rem;
+}

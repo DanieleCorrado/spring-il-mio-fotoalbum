@@ -30,7 +30,6 @@ public class PhotoController {
     @Autowired
     private CategoryService categoryService;
 
-
     // Metodo che mostra tutte le foto presenti nel database
     @GetMapping
     public String index(@RequestParam Optional<String> search, Model model) {
@@ -55,6 +54,7 @@ public class PhotoController {
     // Metodo che mostra il form di creazione della foto
     @GetMapping("/create")
     public String create(Model model) {
+
         model.addAttribute("photo", new PhotoDto());
         model.addAttribute("categoryList", categoryService.getAll());
 
